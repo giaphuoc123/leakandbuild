@@ -10,220 +10,150 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        :root {
-            --primary-bg: #0a0a0a;
-            --secondary-bg: #1a1a1a;
-            --accent-color: #00ff88;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-        }
-
-        [data-theme="light"] {
-            --primary-bg: #f8f9fa;
-            --secondary-bg: #ffffff;
-            --accent-color: #007bff;
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.9);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-bg);
-            color: var(--text-primary);
+            background: linear-gradient(-45deg, #f0f4f8, #e8f5ff, #f8fafc, #f1f8ff);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             overflow-x: hidden;
-            transition: all 0.3s ease;
+            color: #1e293b;
         }
-
-        /* Animated Background */
-        .bg-animation {
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Animated floating elements */
+        .floating-shapes {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
         }
-
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
+        
         .shape {
             position: absolute;
+            background: rgba(59, 130, 246, 0.1);
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b, #4ecdc4);
-            animation: float 20s infinite ease-in-out;
+            animation: float 20s infinite linear;
         }
-
+        
         .shape:nth-child(1) {
             width: 80px;
             height: 80px;
-            top: 20%;
             left: 10%;
             animation-delay: 0s;
         }
-
+        
         .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            left: 80%;
+            animation-delay: 5s;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .shape:nth-child(3) {
             width: 60px;
             height: 60px;
-            top: 60%;
-            left: 80%;
-            animation-delay: -5s;
+            left: 50%;
+            animation-delay: 10s;
+            background: rgba(139, 92, 246, 0.1);
         }
-
-        .shape:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            top: 80%;
-            left: 20%;
-            animation-delay: -10s;
-        }
-
-        .shape:nth-child(4) {
-            width: 40px;
-            height: 40px;
-            top: 30%;
-            left: 70%;
-            animation-delay: -15s;
-        }
-
+        
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
             }
-            33% {
-                transform: translateY(-30px) rotate(120deg);
+            10% {
+                opacity: 1;
             }
-            66% {
-                transform: translateY(30px) rotate(240deg);
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
             }
         }
-
+        
         /* Header */
-        header {
+        .header {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 1000;
-            backdrop-filter: blur(25px) saturate(180%);
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.15) 0%,
-                rgba(255, 255, 255, 0.05) 50%,
-                rgba(255, 255, 255, 0.1) 100%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
-
-        [data-theme="light"] header {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.9) 0%,
-                rgba(255, 255, 255, 0.7) 50%,
-                rgba(255, 255, 255, 0.85) 100%);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-        }
-
-        nav {
+        
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-
+        
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b, #4ecdc4);
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
-            position: relative;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b, #4ecdc4);
-            border-radius: 10px;
-            filter: blur(15px);
-            opacity: 0.3;
-            z-index: -1;
             animation: logoGlow 2s ease-in-out infinite alternate;
         }
-
-        @keyframes glow {
-            from {
-                filter: drop-shadow(0 0 20px var(--accent-color));
-            }
-            to {
-                filter: drop-shadow(0 0 30px var(--accent-color)) drop-shadow(0 0 40px #ff6b6b);
-            }
-        }
-
+        
         @keyframes logoGlow {
-            from {
-                opacity: 0.2;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 0.4;
-                transform: scale(1.1);
-            }
+            from { filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.3)); }
+            to { filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5)); }
         }
-
-        /* Enhanced Tab System */
+        
         .nav-tabs {
             display: flex;
-            list-style: none;
-            gap: 0;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
             border-radius: 50px;
-            padding: 0.3rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                        0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        [data-theme="light"] .nav-tabs {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                        0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-tab {
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 40px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            font-weight: 500;
-            overflow: hidden;
             backdrop-filter: blur(10px);
         }
-
+        
+        .nav-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-radius: 30px;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-tab.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: #1e293b;
+            transform: scale(1.05);
+        }
+        
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
         .nav-tab::before {
             content: '';
             position: absolute;
@@ -231,725 +161,479 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.2), 
-                transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
-
+        
         .nav-tab:hover::before {
             left: 100%;
         }
-
-        .nav-tab:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            color: var(--accent-color);
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(135deg, 
-                var(--accent-color) 0%,
-                #ff6b6b 50%,
-                #4ecdc4 100%);
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-tab.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.2) 0%,
-                transparent 50%,
-                rgba(255, 255, 255, 0.1) 100%);
-            border-radius: 40px;
-        }
-
-        .theme-toggle {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.15) 0%,
-                rgba(255, 255, 255, 0.05) 100%);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
-            padding: 0.7rem 1rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        [data-theme="light"] .theme-toggle {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.8) 0%,
-                rgba(255, 255, 255, 0.6) 100%);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .theme-toggle:hover {
-            transform: translateY(-2px) scale(1.1);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.2) 0%,
-                rgba(255, 255, 255, 0.1) 100%);
-        }
-
+        
         /* Main Content */
-        main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
+        .main-content {
+            margin-top: 100px;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
         }
-
-        .section {
-            display: none;
-            padding: 4rem 2rem;
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
+        
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.6s ease;
         }
-
-        @keyframes fadeIn {
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        /* Home Section */
+        
+        /* Hero Section - Home */
         .hero {
             text-align: center;
-            padding: 4rem 0;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: slideInUp 1s ease-out;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: slideInUp 1s ease-out 0.2s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            animation: slideInUp 1s ease-out 0.4s both;
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 40px;
             position: relative;
             overflow: hidden;
         }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px var(--shadow-color);
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: rotate 20s linear infinite;
         }
-
-        .cta-button::after {
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e293b, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: titleFloat 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleFloat {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #1e293b;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
+            transition: width 0.6s, height 0.6s;
         }
-
-        .cta-button:hover::after {
+        
+        .btn:active::after {
             width: 300px;
             height: 300px;
         }
-
+        
+        /* Features Grid */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
+            gap: 30px;
+            margin-top: 60px;
         }
-
+        
         .feature-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.12) 0%,
-                rgba(255, 255, 255, 0.05) 50%,
-                rgba(255, 255, 255, 0.08) 100%);
-            backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 25px;
-            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
-
-        [data-theme="light"] .feature-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.9) 0%,
-                rgba(255, 255, 255, 0.7) 50%,
-                rgba(255, 255, 255, 0.85) 100%);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.15), 
-                transparent);
-            transition: left 0.6s ease;
-        }
-
-        .feature-card:hover::before {
-            left: 100%;
-        }
-
-        .feature-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(0, 255, 136, 0.1) 0%,
-                rgba(255, 107, 107, 0.1) 50%,
-                rgba(78, 205, 196, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            border-radius: 25px;
-        }
-
+        
         .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25),
-                        0 0 50px rgba(0, 255, 136, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
         }
-
-        .feature-card:hover::after {
-            opacity: 1;
-        }
-
+        
         .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+        
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        /* Discord and Developer sections */
+        .section-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 60px;
+            text-align: center;
+        }
+        
+        .section-content h2 {
             font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e293b, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        /* Discord Section */
-        .discord-section {
-            text-align: center;
-        }
-
-        .discord-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.12) 0%,
-                rgba(255, 255, 255, 0.05) 50%,
-                rgba(255, 255, 255, 0.08) 100%);
-            backdrop-filter: blur(30px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 25px;
-            padding: 3rem;
+        
+        .section-content p {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 40px;
             max-width: 600px;
-            margin: 2rem auto;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        [data-theme="light"] .discord-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%,
-                rgba(255, 255, 255, 0.8) 50%,
-                rgba(255, 255, 255, 0.9) 100%);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.95);
-        }
-
-        .discord-card:hover {
-            transform: scale(1.03) translateY(-5px);
-            box-shadow: 0 25px 50px rgba(88, 101, 242, 0.3),
-                        0 0 50px rgba(88, 101, 242, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            border-color: rgba(88, 101, 242, 0.4);
-        }
-
-        .discord-logo {
-            width: 80px;
-            height: 80px;
-            background: #5865f2;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 2rem;
-            color: white;
-        }
-
-        /* Developer Section */
-        .dev-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .dev-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.12) 0%,
-                rgba(255, 255, 255, 0.05) 50%,
-                rgba(255, 255, 255, 0.08) 100%);
-            backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 25px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        [data-theme="light"] .dev-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.9) 0%,
-                rgba(255, 255, 255, 0.7) 50%,
-                rgba(255, 255, 255, 0.85) 100%);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .dev-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(0, 255, 136, 0.05) 0%,
-                rgba(255, 107, 107, 0.05) 50%,
-                rgba(78, 205, 196, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            border-radius: 25px;
-        }
-
-        .dev-card:hover {
-            transform: translateY(-8px) scale(1.02) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
-                        0 0 30px rgba(0, 255, 136, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            border-color: rgba(0, 255, 136, 0.3);
-        }
-
-        .dev-card:hover::before {
-            opacity: 1;
-        }
-
-        .dev-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            font-weight: bold;
-        }
-
+        
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-tabs {
-                display: none;
+            .header {
+                padding: 15px 20px;
             }
             
-            .mobile-nav {
-                display: block;
-                background: rgba(255, 255, 255, 0.08);
-                backdrop-filter: blur(15px);
-                border-radius: 15px;
-                padding: 0.5rem;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
             }
             
-            .mobile-nav select {
-                background: transparent;
-                border: none;
-                color: var(--text-primary);
-                padding: 0.5rem;
-                border-radius: 10px;
-                font-size: 0.9rem;
+            .main-content {
+                padding: 20px;
+                margin-top: 140px;
             }
             
             .hero h1 {
                 font-size: 2.5rem;
             }
             
-            .hero p {
-                font-size: 1.2rem;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
-            nav {
-                padding: 1rem;
+            .section-content {
+                padding: 40px 20px;
             }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-nav {
-                display: none;
-            }
-        }
-
-        /* Liquid Loading Animation */
-        .liquid-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .liquid-loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .liquid {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
-            animation: liquidPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes liquidPulse {
-            0%, 100% {
-                transform: scale(1);
-                filter: blur(0px);
-            }
-            50% {
-                transform: scale(1.2);
-                filter: blur(5px);
+            
+            .section-content h2 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
-<body data-theme="dark">
-    <!-- Liquid Loader -->
-    <div class="liquid-loader" id="loader">
-        <div class="liquid"></div>
-    </div>
-
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
+<body>
+    <!-- Animated Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
 
     <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">Leak & Build</div>
-            <ul class="nav-tabs">
-                <li><a href="#home" class="nav-tab active">🏠 Home</a></li>
-                <li><a href="#discord" class="nav-tab">💬 Join Discord</a></li>
-                <li><a href="#developers" class="nav-tab">👨‍💻 Developers</a></li>
-            </ul>
-            <div class="mobile-nav">
-                <select id="mobileSelect">
-                    <option value="home">🏠 Home</option>
-                    <option value="discord">💬 Discord</option>
-                    <option value="developers">👨‍💻 Developers</option>
-                </select>
-            </div>
-            <button class="theme-toggle" id="themeToggle">🌙</button>
-        </nav>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Leak And Build</div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="home">🏠 Home</button>
+                <button class="nav-tab" data-tab="discord">💬 Join Us Discord</button>
+                <button class="nav-tab" data-tab="developer">👨‍💻 Developer</button>
+            </nav>
+        </div>
     </header>
 
     <!-- Main Content -->
-    <main>
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="hero">
-                <h1>Leak & Build</h1>
-                <p>Free Source Code & Development Resources</p>
-                <a href="#" class="cta-button">Get Started</a>
-            </div>
+    <main class="main-content">
+        <div class="container">
             
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>Free Source Code</h3>
-                    <p>Access thousands of open-source projects and code snippets to accelerate your development.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Modern Templates</h3>
-                    <p>Beautiful, responsive templates built with the latest technologies and best practices.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>Developer Tools</h3>
-                    <p>Essential tools and utilities to boost your productivity and streamline your workflow.</p>
-                </div>
-            </div>
-        </section>
+            <!-- Home Tab -->
+            <div id="home" class="tab-content active">
+                <section class="hero">
+                    <div class="hero-content">
+                        <h1>Free Source Code</h1>
+                        <p>Discover, learn, and build with our extensive collection of open-source projects. From beginner tutorials to advanced applications - everything is free and ready to use.</p>
+                        <div class="cta-buttons">
+                            <a href="#" class="btn btn-primary">Browse Projects</a>
+                            <a href="#" class="btn btn-secondary">Get Started</a>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Discord Section -->
-        <section id="discord" class="section">
-            <div class="discord-section">
-                <h2>Join Our Community</h2>
-                <div class="discord-card">
-                    <div class="discord-logo">💬</div>
-                    <h3>Connect with Developers</h3>
-                    <p>Join our Discord server to collaborate with fellow developers, share your projects, and get help with your code.</p>
-                    <a href="#" class="cta-button">Join Discord Server</a>
-                </div>
-                
                 <div class="features">
                     <div class="feature-card">
-                        <div class="feature-icon">👥</div>
-                        <h3>Active Community</h3>
-                        <p>Connect with 10,000+ developers worldwide</p>
+                        <div class="feature-icon">🚀</div>
+                        <h3>Ready to Deploy</h3>
+                        <p>All projects come with complete setup instructions and are production-ready. No hidden dependencies or complex configurations.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">💡</div>
-                        <h3>Code Reviews</h3>
-                        <p>Get feedback and improve your coding skills</p>
+                        <div class="feature-icon">📚</div>
+                        <h3>Well Documented</h3>
+                        <p>Every project includes comprehensive documentation, code comments, and examples to help you understand and modify the code.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>Daily Challenges</h3>
-                        <p>Participate in coding challenges and contests</p>
+                        <div class="feature-icon">🔧</div>
+                        <h3>Multiple Technologies</h3>
+                        <p>From web applications to mobile apps, desktop software to APIs - we cover all major programming languages and frameworks.</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Developers Section -->
-        <section id="developers" class="section">
-            <div class="discord-section">
-                <h2>Meet Our Team</h2>
-                <p>The talented developers behind Leak & Build</p>
-                
-                <div class="dev-grid">
-                    <div class="dev-card">
-                        <div class="dev-avatar">JS</div>
-                        <h3>John Smith</h3>
-                        <p>Lead Developer</p>
-                        <p>Full-stack developer with 8+ years of experience in React, Node.js, and cloud technologies.</p>
+            <!-- Discord Tab -->
+            <div id="discord" class="tab-content">
+                <section class="section-content">
+                    <h2>Join Our Discord Community</h2>
+                    <p>Connect with fellow developers, get help with projects, share your creations, and stay updated with the latest releases. Our community is here to support your coding journey!</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary">Join Discord Server</a>
+                        <a href="#" class="btn btn-secondary">Community Guidelines</a>
                     </div>
-                    <div class="dev-card">
-                        <div class="dev-avatar">AD</div>
-                        <h3>Alice Davis</h3>
-                        <p>UI/UX Designer</p>
-                        <p>Creative designer passionate about creating beautiful and intuitive user experiences.</p>
+                    
+                    <div class="features" style="margin-top: 60px;">
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h3>Live Support</h3>
+                            <p>Get real-time help from experienced developers and maintainers who are always ready to assist.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Project Discussions</h3>
+                            <p>Discuss project ideas, collaborate on code, and participate in community challenges.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📢</div>
+                            <h3>Updates & News</h3>
+                            <p>Be the first to know about new projects, updates, and community events.</p>
+                        </div>
                     </div>
-                    <div class="dev-card">
-                        <div class="dev-avatar">MJ</div>
-                        <h3>Mike Johnson</h3>
-                        <p>Backend Engineer</p>
-                        <p>Backend specialist focused on scalable architecture and database optimization.</p>
-                    </div>
-                    <div class="dev-card">
-                        <div class="dev-avatar">SL</div>
-                        <h3>Sarah Lee</h3>
-                        <p>DevOps Engineer</p>
-                        <p>Infrastructure expert ensuring smooth deployment and system reliability.</p>
-                    </div>
-                </div>
+                </section>
             </div>
-        </section>
+
+            <!-- Developer Tab -->
+            <div id="developer" class="tab-content">
+                <section class="section-content">
+                    <h2>Developer Resources</h2>
+                    <p>Access developer tools, APIs, contribution guidelines, and everything you need to contribute to our projects or build your own applications using our resources.</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary">API Documentation</a>
+                        <a href="#" class="btn btn-secondary">Contribution Guide</a>
+                    </div>
+                    
+                    <div class="features" style="margin-top: 60px;">
+                        <div class="feature-card">
+                            <div class="feature-icon">🛠️</div>
+                            <h3>Developer API</h3>
+                            <p>Access our REST API to integrate project data into your own applications and tools.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📝</div>
+                            <h3>Contribute Code</h3>
+                            <p>Submit your own projects, improve existing ones, and help grow the community resource library.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Build Tools</h3>
+                            <p>Access our collection of build scripts, CI/CD templates, and deployment configurations.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
     </main>
 
     <script>
-        // Loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
-        });
-
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-        });
-
-        // Navigation
+        // Tab switching functionality
         const navTabs = document.querySelectorAll('.nav-tab');
-        const sections = document.querySelectorAll('.section');
-        const mobileSelect = document.getElementById('mobileSelect');
-
-        // Desktop navigation
+        const tabContents = document.querySelectorAll('.tab-content');
+        
         navTabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all tabs and sections
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
                 navTabs.forEach(t => t.classList.remove('active'));
-                sections.forEach(s => s.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
                 
                 // Add active class to clicked tab
                 tab.classList.add('active');
                 
-                // Show corresponding section
-                const targetId = tab.getAttribute('href').substring(1);
-                document.getElementById(targetId).classList.add('active');
-                
-                // Update mobile select
-                mobileSelect.value = targetId;
-            });
-        });
-
-        // Mobile navigation
-        mobileSelect.addEventListener('change', (e) => {
-            const targetId = e.target.value;
-            
-            // Remove active class from all tabs and sections
-            navTabs.forEach(t => t.classList.remove('active'));
-            sections.forEach(s => s.classList.remove('active'));
-            
-            // Add active class to corresponding tab
-            const targetTab = document.querySelector(`[href="#${targetId}"]`);
-            if (targetTab) targetTab.classList.add('active');
-            
-            // Show corresponding section
-            document.getElementById(targetId).classList.add('active');
-        });
-
-        // Smooth scrolling animation for feature cards
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card, .dev-card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Parallax effect for floating shapes
-        document.addEventListener('mousemove', (e) => {
-            const shapes = document.querySelectorAll('.shape');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-
-            shapes.forEach((shape, index) => {
-                const speed = (index + 1) * 0.5;
-                const x = (mouseX - 0.5) * speed * 20;
-                const y = (mouseY - 0.5) * speed * 20;
-                
-                shape.style.transform = `translate(${x}px, ${y}px)`;
+                // Show corresponding content
+                const targetTab = tab.getAttribute('data-tab');
+                document.getElementById(targetTab).classList.add('active');
             });
         });
 
         // Header scroll effect
-        let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            const currentScrollY = window.scrollY;
-            
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                header.style.transform = 'translateY(-100%)';
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.2)';
+                header.style.backdropFilter = 'blur(30px)';
             } else {
-                header.style.transform = 'translateY(0)';
+                header.style.background = 'rgba(255, 255, 255, 0.1)';
+                header.style.backdropFilter = 'blur(20px)';
             }
-            
-            lastScrollY = currentScrollY;
         });
+
+        // Smooth scroll for CTA buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                const rect = btn.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                btn.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add more floating shapes dynamically
+        function createFloatingShape() {
+            const shape = document.createElement('div');
+            shape.className = 'shape';
+            shape.style.left = Math.random() * 100 + '%';
+            shape.style.width = shape.style.height = (Math.random() * 60 + 40) + 'px';
+            shape.style.animationDelay = Math.random() * 20 + 's';
+            shape.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            
+            const colors = [
+                'rgba(59, 130, 246, 0.1)',
+                'rgba(16, 185, 129, 0.1)',
+                'rgba(139, 92, 246, 0.1)',
+                'rgba(236, 72, 153, 0.1)'
+            ];
+            shape.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.querySelector('.floating-shapes').appendChild(shape);
+            
+            setTimeout(() => {
+                shape.remove();
+            }, 25000);
+        }
+        
+        // Create new floating shapes periodically
+        setInterval(createFloatingShape, 3000);
     </script>
 </body>
 </html>
